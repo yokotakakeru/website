@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>個人制作物</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+  <?php
+  //DB is connected
+    $dsn = 'mysql:dbname=tb230631db;host=localhost';
+    $user = 'tb-230631';
+    $password = 'kYrpVmPYhQ';
+    $pdo = new PDO($dsn, $user, $password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
+ 
+    if(!empty($_POST['name']) && !empty($_POST['birthday']) && !empty($_POST['number']) && !empty($_POST['id']) && !empty($_POST['pass']))
+        {$name = $_POST['name'];
+         $birthday = $_POST['birthday'];
+         $number = $_POST['number'];
+         $id = $_POST['id'];
+         $pass = $_POST['pass'];
+      
+      
+      
+      $stmt = $pdo -> prepare("INSERT INTO user (name, birthday, number, id, pass) VALUES (:name, :birthday, :number, :id, :pass)");
+      $stmt -> bindParam(':name', $name, PDO::PARAM_STR);
+      $stmt -> bindParam(':birthday', $birthday, PDO::PARAM_STR);
+      $stmt -> bindValue(':number', $number, PDO::PARAM_STR);
+      $stmt -> bindParam(':id', $id, PDO::PARAM_STR);
+      $stmt -> bindParam(':pass', $pass, PDO::PARAM_STR);
+      $stmt -> execute(); 
+    
+        echo "会員登録完了"."<br>";
+        echo "IDとパスワードを入力してログインしてください";
+       }
+  ?>
+  <p><a href="index.php.php">ログインへ</a></p>
