@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>個人制作物</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+  <?php
+  if(!empty($_POST['id']) && !empty($_POST['pass']))
+   {$id = $_POST['id'];
+    $pass = $_POST['pass'];
+     
+    //DB is connected
+    $dsn = 'データベース名';
+    $user = 'ユーザー名';
+    $password = 'パスワード';
+    $pdo = new PDO($dsn, $user, $password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
+    
+    $sql = 'SELECT * FROM user';
+            $result = $pdo -> query($sql);
+               foreach ($result as $row)
+                {if($row['id'] == $id)
+                   {if($row['pass'] !== $pass)
+                    {
+                    
+  ?>
+      <h2>パスワードが違います</h2>
+      <p><a href="index.php.php">戻る</a></p>
+  <?php
+                    }else{($row['id'] == $id && $row['pass'] == $pass);
+                      
+                         
+  ?>
+      <h2>ようこそ</h2>
+      <p><a href="mypage.php">マイページへ</a></p>
+  <?php
+                         } 
+                   } 
+                }
+   }
+  ?>
