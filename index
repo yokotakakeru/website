@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>個人制作物</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+  <?php
+  //DB is connected
+    $dsn = 'データベース名';
+    $user = 'ユーザー名';
+    $password = 'パスワード';
+    $pdo = new PDO($dsn, $user, $password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
+    
+    $sql = "CREATE TABLE IF NOT EXISTS user"
+    ." ("
+    . "name varchar(20),"
+    . "birthday varchar(20),"
+    . "number varchar(15),"
+    . "id varchar(10),"
+    . "pass varchar(12)"
+    .");";
+    $stmt = $pdo->query($sql);
+    ?>
+
+
+  <form action="toppage.php" method="post">
+  <h2><label>【ログインフォーム】</label><br></h2>
+  <h3>会員IDを入力</h3>
+      <input type="text" name="id" placeholder="ユーザーID">
+　<h3>パスワードを入力</h3>
+      <div><input type="text" name="pass" placeholder="パスワード"><br>
+      <input type="submit" name="submit" value="ログイン">
+</form>
+
+　<form action="confirm.php.php" method="post">
+      <h2><label>【会員登録フォーム】</label><br></h2>
+      <h3>氏名</h3>
+      <input type="text" name="name" placeholder="記入例：田中一郎">
+      <h3>生年月日</h3>
+      <input type="text" name="birthday" placeholder="記入例：20001203">
+      <h3>電話番号</h3>
+      <input type="text" name="number" placeholder="記入例：09001234567">
+      <h3>ユーザーID</h3>
+      <input type="text" name="id" placeholder="半角英数字">
+      <h3>パスワード</h3>
+      <input type="text" name="pass" placeholder="半角英数字"><br>
+      <input type="submit" name="submit" value="登録する">
+</form>    
